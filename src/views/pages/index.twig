@@ -1,0 +1,46 @@
+{% extends 'layouts.master' %}
+
+{% block content %}
+
+{# Hero Carousel Section #}
+{% component 'home.slider' %}
+
+{# Services Section #}
+{% component 'home.services' %}
+
+{# Latest Products Section #}
+<div class="container-fluid product py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-lg-12 text-center">
+                <h1>{{ trans('common.our_products') }}</h1>
+            </div>
+        </div>
+        
+        <div class="row g-4 mt-4">
+            {% for product in products %}
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <salla-product-card 
+                    product-id="{{ product.id }}"
+                    product='{{ product | json_encode }}'
+                ></salla-product-card>
+            </div>
+            {% else %}
+            <div class="col-12 text-center">
+                <p>{{ trans('common.no_products') }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if pagination %}
+        <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-center">
+                <salla-infinite-scroll></salla-infinite-scroll>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

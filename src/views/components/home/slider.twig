@@ -1,0 +1,54 @@
+{# Hero Slider Component #}
+<div class="container-fluid carousel px-0">
+    <div class="row g-0">
+        <div class="col-12">
+            {% if sliders | length > 0 %}
+            <salla-slider 
+                id="hero-slider" 
+                auto-play 
+                show-controls
+                type="fade"
+            >
+                {% for slide in sliders %}
+                <div class="slider-item position-relative">
+                    <img src="{{ slide.image.url }}" class="img-fluid w-100" alt="{{ slide.title | default('') }}">
+                    {% if slide.title or slide.description %}
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0, 0, 0, .2);">
+                        <div class="container">
+                            <div class="row justify-content-start">
+                                <div class="col-10 col-lg-8">
+                                    {% if slide.title %}
+                                    <h1 class="display-2 text-white animated slideInDown mb-4">{{ slide.title }}</h1>
+                                    {% endif %}
+                                    {% if slide.description %}
+                                    <p class="fs-5 fw-medium text-white mb-4 pb-2">{{ slide.description }}</p>
+                                    {% endif %}
+                                    {% if slide.button_text and slide.button_url %}
+                                    <a href="{{ slide.button_url }}" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">
+                                        {{ slide.button_text }}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </salla-slider>
+            {% else %}
+            {# Default Banner #}
+            <div class="bg-primary text-white text-center py-5">
+                <div class="container py-5">
+                    <h1 class="display-4 mb-3">{{ store.name }}</h1>
+                    <p class="lead mb-4">{{ store.description }}</p>
+                    <a href="{{ link('products') }}" class="btn btn-light rounded-pill py-3 px-5">
+                        {{ trans('common.shop_now') }}
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

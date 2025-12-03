@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="{{ user.language.code }}" dir="{{ user.language.dir }}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% hook 'head:start' %}
+    {% hook head %}
+    
+    {# Google Web Fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    {# Icon Font Stylesheet #}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ 'fonts/sallaicons.css'|cdn }}"/>
+    
+    {# Theme Font #}
+    {% if theme.font %}
+    <link rel="stylesheet" href="{{ theme.font.path|cdn }}"/>
+    {% endif %}
+    
+    {# Libraries Stylesheet #}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet">
+    
+    {# Bootstrap #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    {# Template Stylesheet #}
+    <link href="{{ 'app.css' | asset }}" rel="stylesheet">
+    
+    {% block styles %}{% endblock %}
+    
+    <style>
+        :root {
+            --font-main: '{{ theme.font.name | default("Open Sans") }}';
+            --color-primary: {{ theme.color.primary | default("#0d6efd") }};
+            --color-primary-dark: {{ theme.color.darker(0.15) | default("#0b5ed7") }};
+            --color-primary-light: {{ theme.color.lighter(0.15) | default("#3d8bfd") }};
+            --color-secondary: #6c757d;
+        }
+    </style>
+    
+    {% hook 'head:end' %}
+</head>
+<body id="app" class="overflow-x-hidden {% hook 'body:classes' %}
+    {{ theme.settings.get('footer_is_dark') ? ' footer-is-dark' : ' footer-is-light' }}
+    {{ theme.settings.get('header_is_sticky') ? ' header-is-sticky' : '' }}
+">
+
+{# Spinner Start #}
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center" style="z-index: 9999;">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">{{ trans('common.loading') }}</span>
+    </div>
+</div>
+{# Spinner End #}
+
+<noscript>
+    To get full functionality of this site you need to enable JavaScript.
+</noscript>
+
+<div class="app-inner flex flex-col min-h-full">
+    {% hook 'body:start' %}
+    
+    {# Header #}
+    {% component 'header.header' %}
+    
+    {# Main Content #}
+    <main id="main-content" role="main">
+        {% block content %}{% endblock %}
+    </main>
+    
+    {# Footer #}
+    {% component 'footer.footer' %}
+</div>
+
+{% hook 'body:end' %}
+
+{# JavaScript Libraries #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+{# Template Javascript #}
+<script src="{{ 'app.js' | asset }}"></script>
+
+{# Twilight Components #}
+<salla-offer-modal></salla-offer-modal>
+<salla-search></salla-search>
+
+{% if user.type == 'guest' %}
+    <salla-login-modal></salla-login-modal>
+{% endif %}
+
+{% block scripts %}{% endblock %}
+
+<script>
+    new WOW().init();
+    
+    // Spinner
+    var spinner = function () {
+        setTimeout(function () {
+            if ($('#spinner').length > 0) {
+                $('#spinner').removeClass('show');
+            }
+        }, 1);
+    };
+    spinner();
+    
+    // Back to top button
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
+            $('.back-to-top').fadeIn('slow');
+        } else {
+            $('.back-to-top').fadeOut('slow');
+        }
+    });
+    $('.back-to-top').click(function () {
+        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        return false;
+    });
+</script>
+</body>
+</html>
+

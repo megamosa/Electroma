@@ -1,0 +1,35 @@
+# Salla ignore file
+# Files and folders to exclude from theme package
+
+# Documentation files
+*.md
+!README.md
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Node modules (if any)
+node_modules/
+
+# Development files
+.vscode/
+.idea/
+*.log
+*.tmp
+
+# Source files (keep only compiled)
+scss/
+src/
+
+# Test files
+test/
+tests/
+__tests__/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+

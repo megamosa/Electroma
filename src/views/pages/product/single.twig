@@ -1,0 +1,102 @@
+{% extends 'layouts.master' %}
+
+{% block content %}
+
+{# Page Header #}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6">{{ product.name }}</h1>
+    <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="{{ link('/') }}">{{ trans('common.home') }}</a></li>
+        {% if product.category %}
+        <li class="breadcrumb-item"><a href="{{ product.category.url }}">{{ product.category.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active text-white">{{ product.name }}</li>
+    </ol>
+</div>
+
+{# Product Details #}
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {# Product Images #}
+            <div class="col-lg-6">
+                <salla-product-slider product-id="{{ product.id }}"></salla-product-slider>
+            </div>
+            
+            {# Product Info #}
+            <div class="col-lg-6">
+                <h1 class="display-5 mb-3">{{ product.name }}</h1>
+                
+                {# Rating #}
+                {% if product.rating %}
+                <div class="mb-3">
+                    <salla-rating-stars value="{{ product.rating }}"></salla-rating-stars>
+                    <span class="ms-2">({{ product.ratings_count | default(0) }} {{ trans('common.reviews') }})</span>
+                </div>
+                {% endif %}
+                
+                {# Price #}
+                <div class="mb-4">
+                    <salla-product-price product-id="{{ product.id }}"></salla-product-price>
+                </div>
+                
+                {# Description #}
+                {% if product.description %}
+                <div class="mb-4">
+                    <h5>{{ trans('common.description') }}</h5>
+                    <div class="text-muted">{{ product.description | raw }}</div>
+                </div>
+                {% endif %}
+                
+                {# Product Options #}
+                <salla-product-options product-id="{{ product.id }}"></salla-product-options>
+                
+                {# Quantity & Add to Cart #}
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <salla-quantity-input product-id="{{ product.id }}"></salla-quantity-input>
+                    <salla-add-product-button product-id="{{ product.id }}" class="btn btn-primary rounded-pill px-5 py-3">
+                        <i class="fas fa-shopping-cart me-2"></i> {{ trans('common.add_to_cart') }}
+                    </salla-add-product-button>
+                    <salla-favorite-button product-id="{{ product.id }}" class="btn btn-outline-primary rounded-pill px-4 py-3">
+                        <i class="fas fa-heart"></i>
+                    </salla-favorite-button>
+                </div>
+                
+                {# Share #}
+                <div class="mb-4">
+                    <h6>{{ trans('common.share') }}</h6>
+                    <salla-social-share></salla-social-share>
+                </div>
+            </div>
+        </div>
+        
+        {# Product Tabs #}
+        <div class="row mt-5">
+            <div class="col-12">
+                <salla-product-details product-id="{{ product.id }}"></salla-product-details>
+            </div>
+        </div>
+        
+        {# Related Products #}
+        {% if related_products | length > 0 %}
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">{{ trans('common.related_products') }}</h3>
+                <div class="row g-4">
+                    {% for item in related_products %}
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <salla-product-card 
+                            product-id="{{ item.id }}"
+                            product='{{ item | json_encode }}'
+                        ></salla-product-card>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+

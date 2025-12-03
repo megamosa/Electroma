@@ -1,0 +1,109 @@
+{# Topbar Start #}
+<div class="container-fluid px-5 d-none border-bottom d-lg-block">
+    <div class="row gx-0 align-items-center">
+        <div class="col-lg-4 text-center text-lg-start mb-lg-0">
+            <div class="d-inline-flex align-items-center" style="height: 45px;">
+                <a href="{{ link('contact') }}" class="text-muted me-2">{{ trans('common.help') }}</a>
+                <small> / </small>
+                <a href="{{ link('contact') }}" class="text-muted mx-2">{{ trans('common.support') }}</a>
+                <small> / </small>
+                <a href="{{ link('contact') }}" class="text-muted ms-2">{{ trans('common.contact') }}</a>
+            </div>
+        </div>
+        <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
+            <small class="text-dark">{{ trans('common.call_us') }}:</small>
+            <a href="tel:{{ store.contacts.mobile }}" class="text-muted ms-2">{{ store.contacts.mobile }}</a>
+        </div>
+        <div class="col-lg-4 text-center text-lg-end">
+            <div class="d-inline-flex align-items-center" style="height: 45px;">
+                <salla-localization-modal inline="true" class="me-3"></salla-localization-modal>
+                <salla-user-menu></salla-user-menu>
+            </div>
+        </div>
+    </div>
+</div>
+{# Topbar End #}
+
+{# Search and Logo Bar #}
+<div class="container-fluid px-5 py-4 d-none d-lg-block">
+    <div class="row gx-0 align-items-center text-center">
+        <div class="col-md-4 col-lg-3 text-center text-lg-start">
+            <a href="{{ link('/') }}" class="navbar-brand p-0">
+                {% if store.logo %}
+                    <img src="{{ store.logo }}" alt="{{ store.name }}" style="max-height: 60px;">
+                {% else %}
+                    <h1 class="display-5 text-primary m-0">
+                        <i class="fas fa-shopping-bag text-secondary me-2"></i>{{ store.name }}
+                    </h1>
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-md-4 col-lg-6 text-center">
+            <salla-search inline="true"></salla-search>
+        </div>
+        <div class="col-md-4 col-lg-3 text-center text-lg-end">
+            <div class="d-inline-flex align-items-center">
+                <salla-button 
+                    widget="wishlist" 
+                    shape="icon" 
+                    color="gray"
+                    class="me-2"
+                ></salla-button>
+                <salla-cart-summary widget-mode></salla-cart-summary>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Navbar Start #}
+<div class="container-fluid nav-bar p-0">
+    <div class="row gx-0 bg-primary px-3 px-lg-5 align-items-center">
+        {# Categories Menu - Desktop #}
+        <div class="col-lg-3 d-none d-lg-block">
+            <nav class="navbar navbar-light position-relative" style="width: 250px;">
+                <button class="navbar-toggler border-0 fs-4 w-100 px-0 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#allCat">
+                    <h4 class="m-0 text-white"><i class="fa fa-bars me-2"></i>{{ trans('common.all_categories') }}</h4>
+                </button>
+                <div class="collapse navbar-collapse rounded-bottom" id="allCat">
+                    <salla-mega-menu></salla-mega-menu>
+                </div>
+            </nav>
+        </div>
+        
+        {# Main Navigation #}
+        <div class="col-12 col-lg-9">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                {# Mobile Logo #}
+                <a href="{{ link('/') }}" class="navbar-brand d-block d-lg-none">
+                    {% if store.logo %}
+                        <img src="{{ store.logo }}" alt="{{ store.name }}" style="max-height: 40px;">
+                    {% else %}
+                        <span class="text-white">{{ store.name }}</span>
+                    {% endif %}
+                </a>
+                
+                {# Mobile Menu Toggle #}
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars fa-1x"></span>
+                </button>
+                
+                {# Navigation Menu #}
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="{{ link('/') }}" class="nav-item nav-link">{{ trans('common.home') }}</a>
+                        <a href="{{ link('products') }}" class="nav-item nav-link">{{ trans('common.shop') }}</a>
+                        <a href="{{ link('brands') }}" class="nav-item nav-link">{{ trans('common.brands') }}</a>
+                        <a href="{{ link('contact') }}" class="nav-item nav-link me-2">{{ trans('common.contact') }}</a>
+                    </div>
+                    {% if store.contacts.mobile %}
+                    <a href="tel:{{ store.contacts.mobile }}" class="btn btn-secondary rounded-pill py-2 px-4 mb-3 mb-md-3 mb-lg-0">
+                        <i class="fa fa-mobile-alt me-2"></i> {{ store.contacts.mobile }}
+                    </a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+{# Navbar End #}
+

@@ -1,0 +1,44 @@
+{
+    "name": {
+        "en": "Electro Theme",
+        "ar": "قالب إلكترو"
+    },
+    "repository": "https://github.com/your-username/electro-theme",
+    "author_email": "developer@example.com",
+    "features": [
+        "mega-menu",
+        "fonts",
+        "color",
+        "breadcrumb"
+    ],
+    "settings": [
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "تثبت القائمة الرئيسية أعلى الصفحة عند التمرير لأسفل",
+            "description": null,
+            "id": "header_is_sticky",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "label": "الوضع الداكن للفوتر",
+            "description": null,
+            "id": "footer_is_dark",
+            "format": "switch",
+            "required": false,
+            "value": true,
+            "selected": true
+        }
+    ],
+    "components": [],
+    "support_url": null,
+    "description": {
+        "en": "Modern electronics e-commerce theme for Salla platform",
+        "ar": "قالب متجر إلكترونيات عصري لمنصة سلة"
+    }
+}
